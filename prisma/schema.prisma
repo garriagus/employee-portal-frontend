@@ -44,7 +44,7 @@ model User {
   image         String?
   role          Role      @default(USER)
   accounts      Account[]
-  area         Area[]
+  tag           Tag[]
   sessions      Session[]
 
   @@map("users")
@@ -59,16 +59,15 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
-model Area {
-  id          String   @id @default(cuid())
-  name       String   @unique
-  location     String
-  description String
-  viewCount   Int      @default(0)
-  authorId    String
-  author      User?    @relation(fields: [authorId], references: [id])
+model Tag {
+  id     String @id @default(cuid())
+  uid    String @unique
+  ip     String
+  status String
+  userId String
+  user  User @relation(fields: [userId], references: [id])
 
-  @@map("posts")
+  @@map("tag")
 }
 
 enum Role {
