@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NavBar from "@/components/NavBar";
 import { ThemeProvider } from "@/components/theme-provider";
+import NavBar from "@/components/NavBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,12 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body         className={`bg-white text-black antialiased dark:bg-gray-950 dark:text-white ${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <body
+          className={`bg-white text-black antialiased dark:bg-gray-950 dark:text-white ${inter.className}`}
+        >
           <NavBar />
           {children}
-        </ThemeProvider>
-      </body>
+        </body>{" "}
+      </ThemeProvider>
     </html>
   );
 }

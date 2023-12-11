@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { PlaneIcon } from "@/components/ui/icons";
 import { prisma } from "@/data/prisma";
-
+import Card from "@/components/Card";
+import SideBar from "@/components/SideBar";
 async function getAllUsers() {
   const data = await prisma.user.findMany({
     include: {
@@ -27,34 +29,21 @@ export default async function Home() {
   const tags = await getAllTags();
 
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-      <>
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className="rounded-lg border bg-card text-card-foreground shadow-sm"
-            data-v0-t="card"
-          >
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold leading-none tracking-tight">
-                nombre: {user.name}
-                
-                <>
-                  {tags.map((tag) => (
-                    <div key={tag.id}>
-                      numero: {tag.id}
-                      <br />
-                      tag: {tag.uid}
-                      <br />
-                      ip de la puerta: {tag.ip}
-                    </div>
-                  ))}
-                </>
-              </h3>
+    <>
+      <SideBar />
+      {users.map((user) => (
+        <Card key={user.id} userProps={user}>
+          {tags.map((tag) => (
+            <div key={tag.id}>
+              numero: {tag.id}
+              <br />
+              tag: {tag.uid}
+              <br />
+              ip de la puerta: {tag.ip}
             </div>
-          </div>
-        ))}
-      </>
-    </div>
+          ))}
+        </Card>
+      ))}
+    </>
   );
 }
